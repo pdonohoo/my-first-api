@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
 
+app.use(bodyParser.json())
 app.use(require('./headers'));
 
 let items = [
@@ -66,8 +68,6 @@ let items = [
         }
 ];
 
-
-
 let cart = [
   {
     item: 'dog',
@@ -90,6 +90,7 @@ app.get('/cart', (req, res) => {
 });
 
 app.post('/cart', (req, res) => {
+  console.log(req.body)
   cart.push(req.body)
   res.send(cart)
 })
@@ -98,7 +99,7 @@ app.delete('/cart', (req, res) => {
   cart.delete(req.body)
   res.send(cart)
 })
- 
+    
 app.get('/kitchen',(req, res) => {
   res.send({  text: 'Taco'  })
 });
