@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const monk = require('monk')
 const url = 'mongodb://pdonohoo:KillerZ18!!@cluster0-shard-00-00-frryf.mongodb.net:27017,cluster0-shard-00-01-frryf.mongodb.net:27017,cluster0-shard-00-02-frryf.mongodb.net:27017/StoreDB?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true'
 const cookieParser = require('cookie-parser')
+const port = process.env.PORT || 5000;
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -92,7 +93,7 @@ app.get('/kitchen',(req, res) => {
   res.send({  text: 'Taco'  })
 }); 
 
-app.listen(5000, (err) => {
+app.listen(port, (err) => {
   if(err){ throw err }
   console.log('Server up and running on port 5000')
 });
