@@ -5,6 +5,7 @@ const monk = require('monk')
 const url = 'mongodb://pdonohoo:KillerZ18!!@cluster0-shard-00-00-frryf.mongodb.net:27017,cluster0-shard-00-01-frryf.mongodb.net:27017,cluster0-shard-00-02-frryf.mongodb.net:27017/StoreDB?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true'
 const cookieParser = require('cookie-parser')
 const port = process.env.PORT || 5000;
+const headers = (require('./headers'))
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -27,8 +28,8 @@ app.get('/items', (req, res) => {
   items.find({}).then(results => res.send(results))
 });   
   
-app.get('/items/:id', async (req, res) => {
-   res.send(await items.findOne({id: req.params.id})
+app.get('/items/:_id', async (req, res) => {
+   res.send(await items.findOne({_id: req.params._id})
   )});
 
 // app.get('/items/:id', (req, res) => {
@@ -52,9 +53,18 @@ app.get('/cart', async (req, res) =>
 // }); 
 
 app.post('/items', async (req, res) => {
-  
- res.send(await items.insert(req.body))
+  res.send(await items.insert(req.body))
 }) 
+
+app.post('/login', (req, res) => {
+ if (users.findOne(req.body)) {
+   res.send(req.body) 
+ } else {
+   res.send(err)
+ }
+})
+
+
 
  
 // app.post('/items', (req, res) => {
@@ -67,16 +77,17 @@ app.post('/users', async (req, res) => {
   res.send(await users.insert(req.body))
 })
 
-app.delete('/cart/:id', async (req, res) => {
-  res.send(await cart.findOneAndDelete({id:req.params.id}))
+app.delete('/cart/:_id', async (req, res) => {
+  res.send(await cart.findOneAndDelete({_id:req.params._id}))
 })
 
 // app.delete('/items/:id', async (req, res) => {
 //   res.send(await items.findOneAndDelete({id: req.params.id}))
 // })
 
-app.delete('/items/:id', (req, res) => {
-  items.findOneAndDelete({id:req.params.id}).then(result => res.send(result))
+app.delete('/items/:_id', (req, res) => {
+  items.findOneAndDelete({_id:req.params._id})
+  .then(result => res.send(result))
 })
   
 // app.delete('/cart/:id', (req, res) => { 
