@@ -89,6 +89,12 @@ app.delete('/items/:_id', (req, res) => {
   items.findOneAndDelete({_id:req.params._id})
   .then(result => res.send(result))
 })
+
+app.post('/items/:_id', (req, res) => {
+  items.findOneAndUpdate({_id: req.params._id}, {$set: {name: req.body.name, price: req.body.price, image: req.body.image}})
+  .then(result => res.send(result))
+  
+})
   
 // app.delete('/cart/:id', (req, res) => { 
 //   console.log('the id of item to delete: ', req.params.id)
