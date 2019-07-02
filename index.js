@@ -57,11 +57,15 @@ app.post('/items', async (req, res) => {
 }) 
 
 app.post('/login', (req, res) => {
- if (users.findOne(req.body)) {
-   res.send(req.body) 
- } else {
-   res.send(err)
- }
+  users.findOne(req.body)
+  .then((user) => {
+    if (req.body.password == user.password && req.body.userName == user.userName) {
+      res.send(req.body)
+    } else {
+      res.send(401, 'No valid user')
+    }
+  }).catch((err) => {res.send(401, 'error')})
+
 })
 
 
