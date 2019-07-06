@@ -37,7 +37,9 @@ app.get('/items/:_id', async (req, res) => {
 // });
 
 app.post('/cart', async (req, res) => {
+  
   res.send(await cart.insert(req.body))
+  
 });
 
 // app.post('/cart',(req, res) => {
@@ -45,7 +47,9 @@ app.post('/cart', async (req, res) => {
 // });
 
 app.get('/cart', async (req, res) =>
+
   res.send(await cart.find({}))
+
 )
 
 // app.get('/cart', (req, res) => {
@@ -53,6 +57,7 @@ app.get('/cart', async (req, res) =>
 // }); 
 
 app.post('/items', async (req, res) => {
+  
   res.send(await items.insert(req.body))
 }) 
 
@@ -64,7 +69,7 @@ app.post('/login', (req, res) => {
     } else {
       res.send(401, 'No valid user')
     }
-  }).catch((err) => {res.send(401, 'error')})
+  }).catch((err) => {res.send(401, 'err')})
 
 })
 
@@ -111,7 +116,7 @@ app.post('/items/:_id', (req, res) => {
 // });   
     
 app.get('/kitchen',(req, res) => { 
-  res.send({  text: 'Taco'  })
+  res.send({  text: 'Taco Tuesday'  })
 }); 
 
 app.listen(port, (err) => {
